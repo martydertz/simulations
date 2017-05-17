@@ -1,3 +1,4 @@
+
 simChicks <- function(n){
     chickPecks <- data.frame(Trial = 0,chick_pos=0, num_pecks = 0)
     for(trial in seq(1:n)){
@@ -48,4 +49,10 @@ head(df2)
 df2$percent_pecked <- as.numeric(df2$Count)/100
 
 
-ggplot(subset(df2, num_pecks!="0"), aes(x=percent_pecked, colour=num_pecks, ..count..))+ geom_density()
+ggplot(subset(df2, num_pecks!="2"), aes(x=percent_pecked, colour=num_pecks, ..count..))+ geom_density()
+sim <- data.frame(Trial = "Binomial", num_pecks="0 - Binomial", Count=rbinom(750, 100, .25))
+sim2 <- data.frame(Trial = "Binomial", num_pecks="1 - Binomial", Count=rbinom(500, 100, .5))
+sim<-rbind(sim, sim2)
+sim$percent_pecked <- sim$Count/100
+df2<-rbind(df2, sim)
+ggplot(subset(df2, num_pecks!="2"), aes(x=percent_pecked, colour=num_pecks, ..count..))+ geom_density()
